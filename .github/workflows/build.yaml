@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm i
+      - run: gulp bundle
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ui-bundle
+          path: build/ui-bundle.zip
