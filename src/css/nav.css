@@ -76,7 +76,7 @@ html.is-clipped--nav {
 
 .nav-panel-menu:not(.is-active)::after {
   content: "";
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0);
   display: block;
   position: absolute;
   top: 0;
